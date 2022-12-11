@@ -2,15 +2,14 @@ import React from "react";
 
 const Default = () => {
 	return (
-		<div className="hero min-h-screen bg-base-200">
-			<div className="hero-content text-center">
+		<div className="hero min-h-screen bg-base-200 bg-[url('./chatting.webp')] bg-cover  bg-no-repeat">
+			<div className="hero-overlay"></div>
+			<div className="hero-content text-center text-white">
 				<div className="max-w-md">
-					<h1 className="text-5xl font-bold">Hello there</h1>
-					<p className="py-6">
-						Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In
-						deleniti eaque aut repudiandae et a id nisi.
+					<h1 className="text-5xl font-bold">HELLO THERE</h1>
+					<p className="py-6 text-xl">
+						Getting start chat with your others by selecting available chat or creating a new one
 					</p>
-					<button className="btn btn-primary">Get Started</button>
 				</div>
 			</div>
 		</div>
