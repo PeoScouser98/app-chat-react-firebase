@@ -14,7 +14,7 @@ const UserControl = () => {
 		<div className="flex justify-between items-center h-fit px-0 mb-10">
 			<UserInfo photoUrl={user?.photoURL} username={user?.displayName} text="online" status={true} />
 
-			<div className="tooltip tooltip-bottom" data-tip="Sign out">
+			<div className="tooltip tooltip-bottom tooltip-primary" data-tip="Sign out">
 				<button className="btn btn-ghost text-xl" onClick={signout}>
 					<CiLogout />
 				</button>
