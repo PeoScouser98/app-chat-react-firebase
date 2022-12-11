@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useContext } from "react";
 import { useEffect } from "react";
 import tw from "tailwind-styled-components";
@@ -15,10 +15,13 @@ const ChatBubble = ({ messageData }) => {
 	const currentUser = useContext(AuthContext);
 	const { chatState } = useContext(ChatContext);
 	const isCurrentUser = currentUser.uid == senderId;
-	console.log(date.seconds);
+	const scrollRef = useRef();
 
+	useEffect(() => {
+		scrollRef?.current.scrollIntoView({ behavior: "smooth" });
+	}, [messageData]);
 	return (
-		<div className={isCurrentUser ? "chat chat-end" : "chat chat-start"}>
+		<div className={isCurrentUser ? "chat chat-end" : "chat chat-start"} ref={scrollRef}>
 			<div className="chat-image avatar">
 				<div className="w-10 rounded-full">
 					<img src={isCurrentUser ? currentUser.photoURL : chatState.user.photoURL} />
