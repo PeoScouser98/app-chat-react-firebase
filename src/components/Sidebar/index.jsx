@@ -7,7 +7,7 @@ import ChatsList from "./ChatsList";
 
 const DrawerSide = tw.aside`drawer-side `;
 const DrawerOverlay = tw.label`drawer-overlay`;
-const DrawerSideMenu = tw.div`menu p-4 w-80 bg-base-300 text-base-content`;
+const DrawerSideMenu = tw.div`menu p-4 w-80 bg-neutral text-base-content`;
 const Sidebar = () => {
 	return (
 		<DrawerSide>
