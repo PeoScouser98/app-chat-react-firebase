@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import AppProvider from "./Context/AppContext";
+import VideoCallProvider from "./Context/VideoContext";
 import AuthProvider, { AuthContext } from "./Context/AuthContext";
 import ChatProvider from "./Context/ChatContext";
 import "./index.css";
@@ -17,7 +17,7 @@ const App = () => {
 		<BrowserRouter>
 			<AuthProvider>
 				<ChatProvider>
-					<AppProvider>
+					<VideoCallProvider>
 						<Routes>
 							<Route
 								path="/"
@@ -29,7 +29,7 @@ const App = () => {
 							/>
 							<Route path="/login" element={<Login />} />
 						</Routes>
-					</AppProvider>
+					</VideoCallProvider>
 				</ChatProvider>
 			</AuthProvider>
 		</BrowserRouter>

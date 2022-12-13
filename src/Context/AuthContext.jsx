@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
 			unsubcribed();
 		};
 	}, []);
-	console.log(currentUser);
 
 	return <AuthContext.Provider value={currentUser}>{children}</AuthContext.Provider>;
 };

@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
-import RoomList from "./RoomList";
-import UserControl from "./UserControl";
+import React from "react";
 import tw from "tailwind-styled-components";
-import Search from "./Search";
 import ChatsList from "./ChatsList";
+import Search from "./Search";
+import UserControl from "./UserControl";
 
 const DrawerSide = tw.aside`drawer-side `;
 const DrawerOverlay = tw.label`drawer-overlay`;

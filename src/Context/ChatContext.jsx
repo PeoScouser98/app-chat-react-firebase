@@ -27,7 +27,6 @@ const ChatProvider = ({ children }) => {
 		chatId: null,
 		user: null,
 	});
-	console.log(chatState);
 	return <ChatContext.Provider value={{ chatState, dispatch }}>{children}</ChatContext.Provider>;
 };
 

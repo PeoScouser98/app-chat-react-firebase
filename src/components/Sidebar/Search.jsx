@@ -22,8 +22,8 @@ import Loading from "../Loading";
 import tw from "tailwind-styled-components";
 import { ChatContext } from "../../Context/ChatContext";
 
-const SearchControl = tw.div`flex justify-start items-center gap-2 bg-base-200 px-4 py-2 rounded-md`;
-const SearchInput = tw.input`input input-sm focus:outline-none bg-inherit`;
+const SearchControl = tw.div`flex justify-start items-center gap-4 bg-base-200 px-4 py-2 rounded-md relative`;
+const SearchInput = tw.input`input input-sm focus:outline-none bg-inherit flex-1 px-0`;
 const SearchResults = tw.ul`dropdown-content menu shadow w-full absolute mt-1 rounded-md bg-base-100`;
 
 const Search = () => {
@@ -37,7 +37,6 @@ const Search = () => {
 		const q = query(collection(db, "users"), where("keywords", "array-contains", e.target.value), limit(20));
 		const querySnapshot = await getDocs(q);
 		let users = querySnapshot.docs.map((doc) => doc.data());
-		// * lấy ra tất cả người dùng có tên khớp với từ khóa ngoại trừ tk hiện tại
 		users = users.filter((u) => u.uid !== currentUser.uid);
 
 		setSearchResult(users);
@@ -91,14 +90,8 @@ const Search = () => {
 	return (
 		<div className="dropdown mb-6">
 			<SearchControl tabIndex={0}>
-				<BsSearch />
-
-				<SearchInput type="text" placeholder="Find an user ..." onChange={(e) => findUser(e)} />
-				{isFetching && (
-					<div>
-						<Loading />
-					</div>
-				)}
+				<div className="w-4">{isFetching ? <Loading /> : <BsSearch className="text-lg" />}</div>
+				<SearchInput type="search" placeholder="Find an user ..." onChange={(e) => findUser(e)} />
 			</SearchControl>
 			<SearchResults tabIndex={0}>
 				{searchResult.map((user, index) => {

@@ -1,27 +1,25 @@
-import { collection, getDocs, doc, onSnapshot, query } from "firebase/firestore";
-import { useContext } from "react";
-import { useEffect, useState } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { ChatContext } from "../../Context/ChatContext";
-import { db } from "../../firebase/firebase.config";
-import Avatar from "../Avatar";
-import UserInfo from "../UserInfo";
+import app, { db } from "../../firebase/firebase.config";
+import UserStat from "../UserStat";
+import firebase from "firebase/compat";
+// import { db } from "../../firebase/firebase.config";
 
 const ChatsList = () => {
 	const [chatsList, setChatsList] = useState([]);
-	const [isSelected, setSelected] = useState(false);
 	const currentUser = useContext(AuthContext);
 	const { dispatch } = useContext(ChatContext);
 	useEffect(() => {
 		// const _query = query(collection(db,'userChats'),where(''))
 		const unsub = onSnapshot(doc(db, "userChats", currentUser.uid), (doc) => {
-			setChatsList(Object.entries(doc.data()));
+			setChatsList(doc.data());
 		});
 		return () => {
 			unsub();
 		};
 	}, []);
-	// console.log(users);
 
 	const selectChat = async (chat) => {
 		try {
@@ -39,13 +37,19 @@ const ChatsList = () => {
 	};
 	return (
 		<ul className="menu">
-			{chatsList.map((chat) => (
-				<li onClick={() => selectChat(chat)} key={chat[0]}>
-					<UserInfo photoUrl={chat[1].userInfo.photoURL} username={chat[1].userInfo.displayName}>
-						<span>Last message</span>
-					</UserInfo>
-				</li>
-			))}
+			{typeof chatsList === "object" &&
+				Object.entries(chatsList)?.map((chat) => {
+					return (
+						<li onClick={() => selectChat(chat)} key={chat[0]}>
+							<UserStat stat={{ username: chat[1].userInfo.displayName, photoURL: chat[1].userInfo.photoURL }}>
+								<span>{chat[1].lastestMessage?.message}</span>
+								<span className="badge badge-info absolute top-1/2 right-2 -translate-y-1/2 text-neutral font-bold">
+									1
+								</span>
+							</UserStat>
+						</li>
+					);
+				})}
 		</ul>
 	);
 };

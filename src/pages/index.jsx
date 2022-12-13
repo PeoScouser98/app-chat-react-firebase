@@ -1,28 +1,27 @@
 import { useContext } from "react";
-import { Navigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import ChatBox from "../components/Chatbox";
 import ChatInput from "../components/Chatbox/ChatForm";
-import Default from "../components/Default";
-import Header from "../components/Header";
-import CreateRoomModal from "../components/Modals/CreateRoomModal";
+import Header from "../components/Header/index";
+import Hero from "../components/Hero";
+import VideoCallModal from "../components/Modals/VideoCallModal";
 import Sidebar from "../components/Sidebar/index";
-import { AuthContext } from "../Context/AuthContext";
 import { ChatContext } from "../Context/ChatContext";
+import { VideoCallContext } from "../Context/VideoContext";
 // * styled components
 const DrawerWrapper = tw.div`drawer drawer-mobile`;
-const DrawerContent = tw.div`drawer-content h-screen flex flex-col justify-between items-stretch`;
+const DrawerContent = tw.div`drawer-content h-screen flex flex-col justify-between items-stretch overflow-x-hidden`;
 const DrawerToggle = tw.input`drawer-toggle`;
 
 const ChatWindow = () => {
 	const { chatState } = useContext(ChatContext);
-
+	const { videoState } = useContext(VideoCallContext);
 	return (
 		<DrawerWrapper data-theme="dark">
 			<DrawerToggle id="sidebar-toggle" type="checkbox" />
 			<DrawerContent>
 				{chatState.chatId === null ? (
-					<Default />
+					<Hero />
 				) : (
 					<>
 						<Header />
@@ -32,7 +31,8 @@ const ChatWindow = () => {
 				)}
 			</DrawerContent>
 			<Sidebar />
-			<CreateRoomModal />
+			{videoState && <VideoCallModal />}
+			{/* <CreateRoomModal /> */}
 		</DrawerWrapper>
 	);
 };

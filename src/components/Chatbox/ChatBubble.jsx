@@ -22,7 +22,7 @@ const ChatBubble = ({ messageData }) => {
 	}, [messageData]);
 	return (
 		<div className={isCurrentUser ? "chat chat-end" : "chat chat-start"} ref={scrollRef}>
-			<div className="chat-image avatar">
+			<div className="chat-image avatar self-end">
 				<div className="w-10 rounded-full">
 					<img src={isCurrentUser ? currentUser.photoURL : chatState.user.photoURL} />
 				</div>

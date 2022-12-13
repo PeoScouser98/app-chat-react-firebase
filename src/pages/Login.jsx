@@ -1,5 +1,11 @@
 // * firebase
-import { signInWithPopup, FacebookAuthProvider, GoogleAuthProvider, getAdditionalUserInfo } from "firebase/auth";
+import {
+	signInWithPopup,
+	FacebookAuthProvider,
+	GoogleAuthProvider,
+	getAdditionalUserInfo,
+	linkWithPopup,
+} from "firebase/auth";
 import firebase, { db, auth } from "../firebase/firebase.config";
 import { generateKeywords, insertDocument } from "../firebase/firebase.service";
 import { doc, setDoc } from "firebase/firestore";
@@ -36,6 +42,7 @@ const createNewUser = async (userDetails, user) => {
 		photoURL: user.photoURL,
 		uid: user.uid,
 		providerId: userDetails.providerId,
+
 		keywords: generateKeywords(user.displayName.toLowerCase()),
 	});
 	console.log("New document:>> ", newDoc);
@@ -45,7 +52,9 @@ const Login = () => {
 	const handleFbLogin = async () => {
 		try {
 			const userCredential = await signInWithPopup(auth, fbProvider);
+			console.log(userCredential);
 			const { user } = userCredential;
+
 			// * if this is the first time user login to app -> save user infor to firebase cloud
 			const userDetails = getAdditionalUserInfo(userCredential);
 			console.log(userDetails);
@@ -53,9 +62,7 @@ const Login = () => {
 				await createNewUser(userDetails, user);
 				await createNewUserChat(user);
 			}
-		} catch (error) {
-			console.log(error);
-		}
+		} catch (error) {}
 	};
 	const handleGgLogin = async () => {
 		try {

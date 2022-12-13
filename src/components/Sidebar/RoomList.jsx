@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { BsPlus } from "react-icons/bs";
-import { AppContext } from "../../Context/AppContext";
+import { AppContext } from "../../Context/VideoContext";
 
 const RoomList = () => {
 	const { roomsList } = useContext(AppContext);
